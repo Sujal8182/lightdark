@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toggle theme</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.css"
+      integrity="sha512-kJlvECunwXftkPwyvHbclArO8wszgBGisiLeuDFwNM8ws+wKIw0sv1os3ClWZOcrEB2eRXULYUsm8OVRGJKwGA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <style>
+    body {
+      transition: background 0.3s ease, color 0.3s ease;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    body.light {
+      background: white;
+      color: black;
+    }
+
+    body.dark {
+      background: black;
+      color: white;
+    }
+
+    h1 {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.8rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 12px;
+  text-align: center;
+  z-index: 10;
+  animation: slideDown 0.7s ease;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  backdrop-filter: blur(5px);
+}
+
+#moon {
+  background: rgba(0, 217, 255, 0.1);
+  color: #00d9ff;
+  text-shadow: 1px 1px 8px #00d9ff;
+  border: 2px solid #00d9ff;
+}
+
+#sun {
+  background: rgba(243, 156, 18, 0.1);
+  color: #f39c12;
+  text-shadow: 1px 1px 8px #f39c12;
+  border: 2px solid #f39c12;
+}
+
+@keyframes slideDown {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+
+    button {
+      padding: 12px 24px;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s;
+    }
+
+    .light button {
+      background-color: #000;
+      color: #fff;
+    }
+
+    .dark button {
+      background-color: #fff;
+      color: #000;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    button i {
+      font-size: 24px;
+      vertical-align: middle;
+      margin-left: 8px;
+    }
+
+    /* Customize icon color in themes */
+    .light button i {
+      color: #fff;
+    }
+
+    .dark button i {
+      color: #000;
+    }
+  </style>
+
+  <body id="body">
+    <button id="toggle-btn" onclick="change()">dark</button>
+  </body>
+  <script>
+    function change() {
+      let body = document.getElementById("body");
+      body.style.background = "black";
+
+      let btn = document.getElementById("toggle-btn");
+      body.innerHTML = `
+        <h1 id="moon">Welcome to Relaxed Night</h1>
+        <button id="toggle-btn" onclick="changewhite()"><i class="ri-sun-fill"></i></button>
+        
+        `;
+      localStorage.setItem("theme", "black");
+    }
+    function changewhite() {
+      let body = document.getElementById("body");
+      body.style.background = "white";
+
+      body.innerHTML = `
+        <h1 id="sun">Glorious energetic sunny day</h1>
+        <button id="toggle-btn" onclick="change()"><i class="ri-moon-clear-fill"></i></button>`;
+      localStorage.setItem("theme", "white");
+    }
+
+    
+    let theme = localStorage.getItem("theme");
+    let body = document.getElementById("body");
+    body.style.background = `${theme}`;
+
+    if (theme == "black") {
+      body.innerHTML = `
+        <h1 id="moon">Welcome to Relaxed Night</h1>
+        <button id="toggle-btn" onclick="changewhite()"><i class="ri-sun-fill"></i></button>
+        
+        `;
+    } else {
+      body.innerHTML = `
+        <h1 id="sun">Glorious energetic sunny day</h1>
+        <button id="toggle-btn" onclick="change()"><i class="ri-moon-clear-fill"></i></button>`;
+    }
+  </script>
+</html>
